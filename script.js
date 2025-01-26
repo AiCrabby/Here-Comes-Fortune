@@ -2,7 +2,7 @@ const GAME_CONFIG = {
     GAME_DURATION: 30,        // 游戏时长（秒）
     ITEM_SPAWN_INTERVAL: 300, // 物品生成间隔（毫秒）
     BOMB_SPAWN_INTERVAL: 5000,// 炸弹生成间隔（毫秒）
-    ITEM_FALL_SPEED: 3,      // 物品下落速度
+    ITEM_FALL_SPEED: 6,      // 物品下落速度增加一倍
     PLAYER_SPEED: 15,        // 玩家移动速度
     SCORE_PER_ITEM: 10,      // 每个物品的分数
     PLAYER_SIZE: 300,        // 玩家大小（像素变大）
@@ -55,27 +55,27 @@ function loadAudio(src) {
 
 async function preloadResources() {
     const imagePromises = [
-        loadImage('user.png'),
-        loadImage('yuanbao.png'),
-        loadImage('hongbao.png'),
-        loadImage('fudai.png'),
-        loadImage('jintiao.png'),
-        loadImage('zhuanshi.png'),
-        loadImage('zhihongbao.png'),
-        loadImage('dahongbao.png'),
-        loadImage('bomb.png'),
-        loadImage('game_background.jpeg'),
-        loadImage('welcome_background.jpeg')
+        loadImage('image/user.png'),
+        loadImage('image/yuanbao.png'),
+        loadImage('image/hongbao.png'),
+        loadImage('image/fudai.png'),
+        loadImage('image/jintiao.png'),
+        loadImage('image/zhuanshi.png'),
+        loadImage('image/zhihongbao.png'),
+        loadImage('image/dahongbao.png'),
+        loadImage('image/bomb.png'),
+        loadImage('image/game_background.jpeg'),
+        loadImage('image/welcome_background.jpeg')
     ];
 
     const audioPromises = [
-        loadAudio('background_music.mp3'),
-        loadAudio('button.mp3'),
-        loadAudio('music1.mp3'),
-        loadAudio('music2.mp3'),
-        loadAudio('music3.mp3'),
-        loadAudio('music4.mp3'),
-        loadAudio('bomb.mp3')
+        loadAudio('music/background_music.mp3'),
+        loadAudio('music/button.mp3'),
+        loadAudio('music/music1.mp3'),
+        loadAudio('music/music2.mp3'),
+        loadAudio('music/music3.mp3'),
+        loadAudio('music/music4.mp3'),
+        loadAudio('music/bomb.mp3')
     ];
 
     await Promise.all([...imagePromises, ...audioPromises]);
@@ -103,13 +103,13 @@ function startGame() {
     }, 1000);
 
     startItemGeneration();
-    audioCache['background_music.mp3'].loop = true;
-    audioCache['background_music.mp3'].play();
+    audioCache['music/background_music.mp3'].loop = true;
+    audioCache['music/background_music.mp3'].play();
 }
 
 function endGame() {
     clearInterval(gameTimer);
-    audioCache['background_music.mp3'].pause();
+    audioCache['music/background_music.mp3'].pause();
     document.getElementById('final-score').textContent = currentScore;
     document.getElementById('result-modal').style.display = 'flex';
     isGameOver = true;
@@ -140,16 +140,16 @@ function updateGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // 更新玩家位置
-    ctx.drawImage(imageCache['user.png'], playerX, playerY, GAME_CONFIG.PLAYER_SIZE, GAME_CONFIG.PLAYER_SIZE);
+    ctx.drawImage(imageCache['image/user.png'], playerX, playerY, GAME_CONFIG.PLAYER_SIZE, GAME_CONFIG.PLAYER_SIZE);
 
     // 更新物品位置
     items = items.filter(item => {
         item.y += item.speed;
-        ctx.drawImage(imageCache[`${item.type}.png`], item.x, item.y, GAME_CONFIG.ITEM_SIZE, GAME_CONFIG.ITEM_SIZE);
+        ctx.drawImage(imageCache[`image/${item.type}.png`], item.x, item.y, GAME_CONFIG.ITEM_SIZE, GAME_CONFIG.ITEM_SIZE);
         if (checkCollision({ x: playerX, y: playerY, width: GAME_CONFIG.PLAYER_SIZE, height: GAME_CONFIG.PLAYER_SIZE }, { x: item.x, y: item.y, width: GAME_CONFIG.ITEM_SIZE, height: GAME_CONFIG.ITEM_SIZE })) {
             currentScore += GAME_CONFIG.SCORE_PER_ITEM;
             document.getElementById('score').textContent = currentScore;
-            audioCache[`music${Math.floor(Math.random() * 4) + 1}.mp3`].play();
+            audioCache[`music/music${Math.floor(Math.random() * 4) + 1}.mp3`].play();
             return false;
         }
         return item.y < canvas.height;
@@ -158,10 +158,10 @@ function updateGame() {
     // 更新炸弹位置
     bombs = bombs.filter(bomb => {
         bomb.y += bomb.speed;
-        ctx.drawImage(imageCache['bomb.png'], bomb.x, bomb.y, GAME_CONFIG.BOMB_SIZE, GAME_CONFIG.BOMB_SIZE);
+        ctx.drawImage(imageCache['image/bomb.png'], bomb.x, bomb.y, GAME_CONFIG.BOMB_SIZE, GAME_CONFIG.BOMB_SIZE);
         if (checkCollision({ x: playerX, y: playerY, width: GAME_CONFIG.PLAYER_SIZE, height: GAME_CONFIG.PLAYER_SIZE }, { x: bomb.x, y: bomb.y, width: GAME_CONFIG.BOMB_SIZE, height: GAME_CONFIG.BOMB_SIZE })) {
             endGame();
-            audioCache['bomb.mp3'].play();
+            audioCache['music/bomb.mp3'].play();
             return false;
         }
         return bomb.y < canvas.height;
