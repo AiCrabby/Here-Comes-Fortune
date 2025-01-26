@@ -32,7 +32,7 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-image: url('image/welcome_background.jpeg'); /* 添加背景图片 */
+    background-image: url('welcome_background.jpeg'); /* 添加背景图片 */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -64,7 +64,7 @@ html, body {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-image: url('image/game_background.jpeg');
+    background-image: url('game_background.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
