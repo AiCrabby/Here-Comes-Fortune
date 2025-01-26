@@ -1,0 +1,167 @@
+/* 全局样式设置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;    /* 禁止长按菜单 */
+    -webkit-user-select: none;      /* 禁止选择文本 */
+    -webkit-tap-highlight-color: transparent; /* 禁止触摸高亮 */
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;          /* 禁止页面滚动 */
+    position: fixed;           /* 固定页面 */
+    touch-action: none;        /* 禁止默认触摸行为 */
+    background-color: #f8f8f8; /* 设置背景色 */
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* 欢迎页样式 */
+.welcome-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url('image/welcome_background.jpeg'); /* 添加背景图片 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.welcome-content {
+    text-align: center;
+}
+
+.start-button {
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: #D4380D;
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+}
+
+/* 游戏页样式 */
+.game-page {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url('image/game_background.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.game-header {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    color: #D4380D;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.game-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#game-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 1;
+}
+
+.player-container {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    overflow: visible;
+    pointer-events: none;
+}
+
+#player {
+    position: absolute;
+    width: 300px; /* 玩家像素变大 */
+    height: 300px; /* 玩家像素变大 */
+    bottom: 0;
+    transition: left 0.1s linear;
+    pointer-events: none;
+}
+
+/* 结算弹窗样式 */
+.result-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.modal-content {
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: #D4380D;
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#final-score {
+    font-size: 120px;
+    font-weight: bold; /* 加粗字体 */
+    color: #FF0000; /* 改变颜色为红色 */
+}
+
+#retry-button {
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: #D4380D;
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#retry-button:hover {
+    transform: scale(1.05);
+}
